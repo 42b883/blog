@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-    
+    <add-blog></add-blog>
   </div>
 </template>
 
 <script>
+import addBlog from './components/addBlog.vue';
+
 export default {
-  name: 'app',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
+  components: {
+    'add-blog': addBlog
   }
+ 
 }
 </script>
 

@@ -5,7 +5,7 @@
         <input class="search" type="text" v-model="search" placeholder="search blogs">
         <div v-for="blog in filteredBlogs" class="single-blog">
             <router-link v-bind:to="'/blog/' + blog.id"><h2>{{blog.title | to-uppercase}}</h2></router-link>
-             <article>{{blog.body  | snippet}}</article>
+             <article>{{blog.content  | snippet}}</article>
         </div>
     </div>
   </div>
@@ -25,13 +25,20 @@ export default {
 
  },
  created() {
-     this.$http.get('https://jsonplaceholder.typicode.com/posts').then(function(data){
-         this.blogs = data.body.slice(0,10);
+     this.$http.get('https://blog-f71c1.firebaseio.com/posts.json').then(function(data){
+         return data.json();
+     }).then(function(data){
+         let blogsArray = [];
+         for (let key in data) {
+             data[key].id = key
+             blogsArray.push(data[key]);
+         }
+         this.blogs = blogsArray;
      })
  },
  computed: {
      filteredBlogs() {
-         return this.blogs.filter((blog) => {
+         return this.blogs.filter((blog) =>  {
              return blog.title.match(this.search);
          })
      }
@@ -69,6 +76,13 @@ mixins: [searchMixin]
         width: 547px;
         height: 34px;
         padding: 5px;
+    }
+    h2, h2:link, h2:active {
+        text-decoration: none;
+        color:teal;
+    }
+    h2:hover {
+        color: #000;
     }
 </style>
 

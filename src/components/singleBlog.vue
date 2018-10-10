@@ -14,9 +14,10 @@ export default {
         }
     },
     created() {
-        this.$http.get('https://jsonplaceholder.typicode.com/posts/' + this.id).then(function(data){
-            console.log(data);
-            this.blog = data.body;
+        this.$http.get('https://blog-f71c1.firebaseio.com/posts/' + this.id + '.json').then(function(data){
+            return data.json();
+        }).then(function(data){
+            this.blog = data;
         });
     }
 }
@@ -26,6 +27,9 @@ export default {
     #single-blog {
         min-width: 960px;
         margin: 0 auto;
+    }
+    h1 {
+        text-align: center;
     }
 </style>
 

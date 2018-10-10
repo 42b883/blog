@@ -19,8 +19,6 @@ Vue.directive('theme', {
 })
 
 //Filters
-
-
 Vue.filter('snippet', function(value){
   return value.slice(0, 100) +'...';
 })
